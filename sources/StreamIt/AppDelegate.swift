@@ -7,13 +7,45 @@
 //
 
 import UIKit
+import CocoaAsyncSocket
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GCDAsyncSocketDelegate {
 
     var window: UIWindow?
+    let ip = IPChecker.getIP()
+    let serverQueue = dispatch_queue_create("ServerQueue", DISPATCH_QUEUE_SERIAL)
+    var clientSocket: GCDAsyncSocket?
 
-
+    // Methodes du Delegate
+    
+    func socket(sock: GCDAsyncSocket!, didConnectToHost host: String!, port: UInt16) {
+        print ("Connected to \(host)")
+        
+        // enregistrement dans le broker MQTT
+        let json = ["ip": "\(self.ip)",
+                    "port": 10001,
+                    "name": "\(UIDevice.currentDevice().name)",
+                    "model": "\(UIDevice.currentDevice().model)",
+                    "serial": "\(UIDevice.currentDevice().identifierForVendor!.description)",
+                    "url": ["mjpeg":"/"],
+                    "available": false,
+                    "found": true
+        ]
+        
+        if NSJSONSerialization.isValidJSONObject(json) { // True
+            do {
+                let rawData = try NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted)
+                let readable = NSString(data: rawData, encoding: NSUTF8StringEncoding)
+                let goodReadable = readable?.stringByReplacingOccurrencesOfString("\\/", withString: "/")
+                sock.writeData(goodReadable!.dataUsingEncoding(NSUTF8StringEncoding), withTimeout: -1, tag: 0)
+            } catch {
+                print ("Failed contacting hmi.armonic ...")
+            }
+        }
+        
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -39,6 +71,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // desenregistrement dans le broker MQTT
+        do {
+            self.clientSocket = GCDAsyncSocket(delegate: self, delegateQueue: self.serverQueue)
+            try self.clientSocket!.connectToHost("hmi.armonic", onPort: 43210, withTimeout: -1)
+        } catch {
+            print ("Failed contacting hmi.armonic ...")
+        }
     }
 
 

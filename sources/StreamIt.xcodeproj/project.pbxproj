@@ -8,20 +8,36 @@
 
 /* Begin PBXBuildFile section */
 		1A7E8C391CBFFC7400EFE574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C381CBFFC7400EFE574 /* AppDelegate.swift */; };
-		1A7E8C3B1CBFFC7400EFE574 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C3A1CBFFC7400EFE574 /* ViewController.swift */; };
 		1A7E8C3E1CBFFC7400EFE574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C3C1CBFFC7400EFE574 /* Main.storyboard */; };
 		1A7E8C401CBFFC7400EFE574 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C3F1CBFFC7400EFE574 /* Assets.xcassets */; };
 		1A7E8C431CBFFC7400EFE574 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C411CBFFC7400EFE574 /* LaunchScreen.storyboard */; };
+		1A7E8C4B1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7E8C4A1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework */; };
+		1A7E8C521CBFFEEA00EFE574 /* IPChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C511CBFFEEA00EFE574 /* IPChecker.m */; };
+		1A7E8C541CBFFF9A00EFE574 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */; };
+		1A7E8C561CC0005800EFE574 /* StreamingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C551CC0005800EFE574 /* StreamingSession.swift */; };
+		1A7E8C5B1CC0009500EFE574 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C571CC0009500EFE574 /* Queue.swift */; };
+		1A7E8C5C1CC0009500EFE574 /* ysocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C581CC0009500EFE574 /* ysocket.swift */; };
+		1A7E8C5D1CC0009500EFE574 /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C591CC0009500EFE574 /* ytcpsocket.c */; };
+		1A7E8C5E1CC0009500EFE574 /* ytcpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C5A1CC0009500EFE574 /* ytcpsocket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1A7E8C351CBFFC7400EFE574 /* StreamIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreamIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A7E8C381CBFFC7400EFE574 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1A7E8C3A1CBFFC7400EFE574 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1A7E8C3D1CBFFC7400EFE574 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1A7E8C3F1CBFFC7400EFE574 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A7E8C421CBFFC7400EFE574 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A7E8C441CBFFC7400EFE574 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A7E8C4A1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
+		1A7E8C4E1CBFFEE900EFE574 /* StreamIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StreamIt-Bridging-Header.h"; sourceTree = "<group>"; };
+		1A7E8C501CBFFEEA00EFE574 /* IPChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPChecker.h; sourceTree = "<group>"; };
+		1A7E8C511CBFFEEA00EFE574 /* IPChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPChecker.m; sourceTree = "<group>"; };
+		1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		1A7E8C551CC0005800EFE574 /* StreamingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingSession.swift; sourceTree = "<group>"; };
+		1A7E8C571CC0009500EFE574 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		1A7E8C581CC0009500EFE574 /* ysocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ysocket.swift; sourceTree = "<group>"; };
+		1A7E8C591CC0009500EFE574 /* ytcpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
+		1A7E8C5A1CC0009500EFE574 /* ytcpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ytcpsocket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A7E8C4B1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +55,7 @@
 		1A7E8C2C1CBFFC7400EFE574 = {
 			isa = PBXGroup;
 			children = (
+				1A7E8C4A1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework */,
 				1A7E8C371CBFFC7400EFE574 /* StreamIt */,
 				1A7E8C361CBFFC7400EFE574 /* Products */,
 			);
@@ -54,14 +72,38 @@
 		1A7E8C371CBFFC7400EFE574 /* StreamIt */ = {
 			isa = PBXGroup;
 			children = (
+				1A7E8C5F1CC0009A00EFE574 /* Socket */,
+				1A7E8C4D1CBFFE9F00EFE574 /* IpChecker */,
 				1A7E8C381CBFFC7400EFE574 /* AppDelegate.swift */,
-				1A7E8C3A1CBFFC7400EFE574 /* ViewController.swift */,
+				1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */,
+				1A7E8C551CC0005800EFE574 /* StreamingSession.swift */,
+				1A7E8C571CC0009500EFE574 /* Queue.swift */,
 				1A7E8C3C1CBFFC7400EFE574 /* Main.storyboard */,
 				1A7E8C3F1CBFFC7400EFE574 /* Assets.xcassets */,
 				1A7E8C411CBFFC7400EFE574 /* LaunchScreen.storyboard */,
 				1A7E8C441CBFFC7400EFE574 /* Info.plist */,
 			);
 			path = StreamIt;
+			sourceTree = "<group>";
+		};
+		1A7E8C4D1CBFFE9F00EFE574 /* IpChecker */ = {
+			isa = PBXGroup;
+			children = (
+				1A7E8C501CBFFEEA00EFE574 /* IPChecker.h */,
+				1A7E8C511CBFFEEA00EFE574 /* IPChecker.m */,
+				1A7E8C4E1CBFFEE900EFE574 /* StreamIt-Bridging-Header.h */,
+			);
+			name = IpChecker;
+			sourceTree = "<group>";
+		};
+		1A7E8C5F1CC0009A00EFE574 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				1A7E8C581CC0009500EFE574 /* ysocket.swift */,
+				1A7E8C591CC0009500EFE574 /* ytcpsocket.c */,
+				1A7E8C5A1CC0009500EFE574 /* ytcpsocket.swift */,
+			);
+			name = Socket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +116,7 @@
 				1A7E8C311CBFFC7400EFE574 /* Sources */,
 				1A7E8C321CBFFC7400EFE574 /* Frameworks */,
 				1A7E8C331CBFFC7400EFE574 /* Resources */,
+				1A7E8C4C1CBFFE5400EFE574 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -130,13 +173,36 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1A7E8C4C1CBFFE5400EFE574 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/CocoaAsyncSocket.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1A7E8C311CBFFC7400EFE574 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A7E8C3B1CBFFC7400EFE574 /* ViewController.swift in Sources */,
+				1A7E8C5C1CC0009500EFE574 /* ysocket.swift in Sources */,
+				1A7E8C5B1CC0009500EFE574 /* Queue.swift in Sources */,
 				1A7E8C391CBFFC7400EFE574 /* AppDelegate.swift in Sources */,
+				1A7E8C521CBFFEEA00EFE574 /* IPChecker.m in Sources */,
+				1A7E8C5E1CC0009500EFE574 /* ytcpsocket.swift in Sources */,
+				1A7E8C541CBFFF9A00EFE574 /* CameraViewController.swift in Sources */,
+				1A7E8C561CC0005800EFE574 /* StreamingSession.swift in Sources */,
+				1A7E8C5D1CC0009500EFE574 /* ytcpsocket.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,10 +317,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = StreamIt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.warpcore.StreamIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StreamIt/StreamIt-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -262,10 +337,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = StreamIt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.warpcore.StreamIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StreamIt/StreamIt-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -288,6 +371,7 @@
 				1A7E8C491CBFFC7400EFE574 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

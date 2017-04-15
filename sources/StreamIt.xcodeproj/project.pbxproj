@@ -7,18 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A25D45D1EA27636002431F2 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7E8C4A1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework */; };
 		1A7E8C391CBFFC7400EFE574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C381CBFFC7400EFE574 /* AppDelegate.swift */; };
 		1A7E8C3E1CBFFC7400EFE574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C3C1CBFFC7400EFE574 /* Main.storyboard */; };
 		1A7E8C401CBFFC7400EFE574 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C3F1CBFFC7400EFE574 /* Assets.xcassets */; };
 		1A7E8C431CBFFC7400EFE574 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C411CBFFC7400EFE574 /* LaunchScreen.storyboard */; };
-		1A7E8C4B1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7E8C4A1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework */; };
 		1A7E8C521CBFFEEA00EFE574 /* IPChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C511CBFFEEA00EFE574 /* IPChecker.m */; };
 		1A7E8C541CBFFF9A00EFE574 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */; };
 		1A7E8C561CC0005800EFE574 /* StreamingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C551CC0005800EFE574 /* StreamingSession.swift */; };
 		1A7E8C5B1CC0009500EFE574 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C571CC0009500EFE574 /* Queue.swift */; };
-		1A7E8C5C1CC0009500EFE574 /* ysocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C581CC0009500EFE574 /* ysocket.swift */; };
-		1A7E8C5D1CC0009500EFE574 /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C591CC0009500EFE574 /* ytcpsocket.c */; };
-		1A7E8C5E1CC0009500EFE574 /* ytcpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C5A1CC0009500EFE574 /* ytcpsocket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,9 +32,6 @@
 		1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		1A7E8C551CC0005800EFE574 /* StreamingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingSession.swift; sourceTree = "<group>"; };
 		1A7E8C571CC0009500EFE574 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		1A7E8C581CC0009500EFE574 /* ysocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ysocket.swift; sourceTree = "<group>"; };
-		1A7E8C591CC0009500EFE574 /* ytcpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
-		1A7E8C5A1CC0009500EFE574 /* ytcpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ytcpsocket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A7E8C4B1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework in Frameworks */,
+				1A25D45D1EA27636002431F2 /* CocoaAsyncSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,7 +66,6 @@
 		1A7E8C371CBFFC7400EFE574 /* StreamIt */ = {
 			isa = PBXGroup;
 			children = (
-				1A7E8C5F1CC0009A00EFE574 /* Socket */,
 				1A7E8C4D1CBFFE9F00EFE574 /* IpChecker */,
 				1A7E8C381CBFFC7400EFE574 /* AppDelegate.swift */,
 				1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */,
@@ -94,16 +87,6 @@
 				1A7E8C4E1CBFFEE900EFE574 /* StreamIt-Bridging-Header.h */,
 			);
 			name = IpChecker;
-			sourceTree = "<group>";
-		};
-		1A7E8C5F1CC0009A00EFE574 /* Socket */ = {
-			isa = PBXGroup;
-			children = (
-				1A7E8C581CC0009500EFE574 /* ysocket.swift */,
-				1A7E8C591CC0009500EFE574 /* ytcpsocket.c */,
-				1A7E8C5A1CC0009500EFE574 /* ytcpsocket.swift */,
-			);
-			name = Socket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,11 +117,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Thibault Wittemberg";
 				TargetAttributes = {
 					1A7E8C341CBFFC7400EFE574 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 3V5265LQM9;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -195,14 +180,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A7E8C5C1CC0009500EFE574 /* ysocket.swift in Sources */,
 				1A7E8C5B1CC0009500EFE574 /* Queue.swift in Sources */,
 				1A7E8C391CBFFC7400EFE574 /* AppDelegate.swift in Sources */,
 				1A7E8C521CBFFEEA00EFE574 /* IPChecker.m in Sources */,
-				1A7E8C5E1CC0009500EFE574 /* ytcpsocket.swift in Sources */,
 				1A7E8C541CBFFF9A00EFE574 /* CameraViewController.swift in Sources */,
 				1A7E8C561CC0005800EFE574 /* StreamingSession.swift in Sources */,
-				1A7E8C5D1CC0009500EFE574 /* ytcpsocket.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,8 +224,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -288,8 +272,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -308,6 +294,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -318,6 +305,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 3V5265LQM9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -329,6 +317,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "StreamIt/StreamIt-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -338,6 +327,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 3V5265LQM9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -348,6 +338,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.warpcore.StreamIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "StreamIt/StreamIt-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

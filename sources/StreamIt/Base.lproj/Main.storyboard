@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Camera View Controller-->
@@ -14,21 +18,21 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nq1-oN-aLu" userLabel="cameraView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5fK-fo-mq2">
-                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="6KP-ca-iS3">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="led_gray" translatesAutoresizingMaskIntoConstraints="NO" id="QMG-P0-QhK">
-                                            <rect key="frame" x="562" y="15" width="30" height="30"/>
+                                            <rect key="frame" x="337" y="15" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="QMG-P0-QhK" secondAttribute="height" multiplier="1:1" id="1Lg-NS-1ZY"/>
                                                 <constraint firstAttribute="width" constant="30" id="FPE-lc-6zx"/>
@@ -40,26 +44,26 @@
                                                 <constraint firstAttribute="width" constant="42" id="hkb-TX-kVy"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="fxF-Bw-fPQ">
-                                            <rect key="frame" x="56" y="15" width="422" height="31"/>
+                                            <rect key="frame" x="56" y="15" width="197" height="31"/>
                                             <connections>
                                                 <action selector="zoomChanged:forEvent:" destination="BYZ-38-t0r" eventType="valueChanged" id="FiE-M0-UfJ"/>
                                             </connections>
                                         </slider>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdd-DG-bzg">
-                                            <rect key="frame" x="484" y="17" width="42" height="27"/>
+                                            <rect key="frame" x="259" y="17" width="42" height="27"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="42" id="ldv-fD-iFK"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1N-ig-7HX">
-                                            <rect key="frame" x="534" y="20" width="20" height="20"/>
+                                            <rect key="frame" x="309" y="20" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="3OI-DE-gbg"/>
                                                 <constraint firstAttribute="width" secondItem="i1N-ig-7HX" secondAttribute="height" multiplier="1:1" id="uWn-ST-k00"/>
@@ -97,13 +101,13 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dd1-xS-wFf">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="532"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dd1-xS-wFf" firstAttribute="leading" secondItem="Nq1-oN-aLu" secondAttribute="leading" id="0fV-RJ-G0v"/>
                             <constraint firstItem="Nq1-oN-aLu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DV4-4H-qjM"/>

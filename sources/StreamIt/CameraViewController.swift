@@ -19,7 +19,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     @IBOutlet weak var ledImage: UIImageView!
     @IBOutlet weak var informationButton: UIButton!
     @IBOutlet weak var addressLabel: UILabel!
-    
+
     let ip = IPChecker.getIP()
     let captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
@@ -28,52 +28,24 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     var clients = [Int:StreamingSession]()
     var serverSocket: GCDAsyncSocket?
     var clientSocket: GCDAsyncSocket?
-    var previousOrientation = UIDeviceOrientation.Portrait
+    var previousOrientation = UIDeviceOrientation.portrait
     
-    let serverQueue = dispatch_queue_create("ServerQueue", DISPATCH_QUEUE_SERIAL)
-    let clientQueue = dispatch_queue_create("ClientQueue", DISPATCH_QUEUE_CONCURRENT)
-    let socketWriteQueue = dispatch_queue_create("SocketWriteQueue", DISPATCH_QUEUE_CONCURRENT)
+    let serverQueue = DispatchQueue(label: "ServerQueue", attributes: [])
+    let clientQueue = DispatchQueue(label: "ClientQueue", attributes: DispatchQueue.Attributes.concurrent)
+    let socketWriteQueue = DispatchQueue(label: "SocketWriteQueue", attributes: DispatchQueue.Attributes.concurrent)
     
     // Méthode du Delegate
-    func socket(sock: GCDAsyncSocket!, didAcceptNewSocket newSocket: GCDAsyncSocket!) {
-        print("Client has connected with IP \(newSocket.connectedHost)")
-        let clientId = newSocket.connectedAddress.hashValue
-        let newClient = StreamingSession(id: clientId, client: newSocket, queue: self.clientQueue)
-        self.clients[clientId] = newClient
+    func socket(_ sock: GCDAsyncSocket, didAcceptNewSocket newSocket: GCDAsyncSocket) {
+        print("Client has connected with IP \(newSocket.connectedHost ?? "unknown")")
+        let clientId = newSocket.connectedAddress?.hashValue
+        let newClient = StreamingSession(id: clientId!, client: newSocket, queue: self.clientQueue)
+        self.clients[clientId!] = newClient
         newClient.startStreaming()
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.ledImage.image = UIImage(named: "led_red")
         })
     }
-    
-    func socket(sock: GCDAsyncSocket!, didConnectToHost host: String!, port: UInt16) {
-        print ("Connected to \(host)")
-        
-        // enregistrement dans le broker MQTT
-        let json = ["ip": "\(self.ip)",
-                    "port": 10001,
-                    "name": "\(UIDevice.currentDevice().name)",
-                    "model": "\(UIDevice.currentDevice().model)",
-                    "serial": "\(UIDevice.currentDevice().identifierForVendor!.description)",
-                    "url": ["mjpeg":"/"],
-                    "available": true,
-                    "found": true
-        ]
-        
-        if NSJSONSerialization.isValidJSONObject(json) { // True
-            do {
-                let rawData = try NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted)
-                let readable = NSString(data: rawData, encoding: NSUTF8StringEncoding)
-                let goodReadable = readable?.stringByReplacingOccurrencesOfString("\\/", withString: "/")
-                sock.writeData(goodReadable!.dataUsingEncoding(NSUTF8StringEncoding), withTimeout: -1, tag: 0)
-            } catch {
-                print ("Failed contacting hmi.armonic ...")
-            }
-        }
-        
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,11 +53,11 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         // on crée la socket de service
         // Le serveur tourne dans sa propre queue (les méthodes de délégate seront exécutées dans cette queue)
         // Les clients possèdent également leur propre queue dexécution
-        print("Création du serveur sur l'IP \(self.ip)")
+        print("Création du serveur sur l'IP \(String(describing: self.ip))")
         self.serverSocket = GCDAsyncSocket(delegate: self, delegateQueue: self.serverQueue, socketQueue: self.socketWriteQueue)
         
         do {
-            try self.serverSocket!.acceptOnInterface(self.ip, port: 10001)
+            try self.serverSocket!.accept(onInterface: self.ip, port: 10001)
         } catch {
             print("Could not listen on port 10001 ...")
         }
@@ -93,7 +65,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         // enregistrement dans le broker MQTT
         do {
             self.clientSocket = GCDAsyncSocket(delegate: self, delegateQueue: self.serverQueue)
-            try self.clientSocket!.connectToHost("hmi.armonic", onPort: 43210, withTimeout: -1)
+            try self.clientSocket!.connect(toHost: "hmi.armonic", onPort: 43210, withTimeout: -1)
         } catch {
             print ("Failed contacting hmi.armonic ...")
         }
@@ -102,8 +74,8 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         self.captureSession.sessionPreset = AVCaptureSessionPreset1280x720
         let devices = AVCaptureDevice.devices()
         
-        for device in devices{
-            if (device.hasMediaType(AVMediaTypeVideo)){
+        for device in devices!{
+            if ((device as AnyObject).hasMediaType(AVMediaTypeVideo)){
                 self.captureDevice = device as? AVCaptureDevice
                 if (captureDevice != nil) {
                     print("Capture Device Found")
@@ -114,7 +86,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         }
     }
 
-    @IBAction func zoomChanged(sender: UISlider, forEvent event: UIEvent) {
+    @IBAction func zoomChanged(_ sender: UISlider, forEvent event: UIEvent) {
         do {
             try self.captureDevice!.lockForConfiguration()
             self.captureDevice?.videoZoomFactor = CGFloat(sender.value)
@@ -124,9 +96,9 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         }
     }
     
-    @IBAction func informationPressed(sender: AnyObject) {
-        self.addressLabel.text = "http://\(self.ip):10001"
-        UIView.animateWithDuration(1, animations: {
+    @IBAction func informationPressed(_ sender: AnyObject) {
+        self.addressLabel.text = "http://\(self.ip ?? "unknown"):10001"
+        UIView.animate(withDuration: 1, animations: {
             if (self.addressLabel.alpha == 0) {
                 self.addressLabel.alpha = 1
             }
@@ -140,7 +112,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     func beginSession () -> Void {
         do {
             try self.captureDevice!.lockForConfiguration()
-            self.captureDevice!.focusMode = .ContinuousAutoFocus
+            self.captureDevice!.focusMode = .continuousAutoFocus
             self.captureDevice!.unlockForConfiguration()
             if let maxZoom = self.captureDevice?.activeFormat.videoMaxZoomFactor {
                 self.zoomSlider.maximumValue = Float(maxZoom)
@@ -151,11 +123,11 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
             
             let bounds = self.view.bounds
             
-            self.previewLayer?.bounds = CGRect(origin: CGPointZero, size: CGSize(width: bounds.width, height: bounds.height))
+            self.previewLayer?.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: bounds.width, height: bounds.height))
             self.previewLayer?.videoGravity = AVLayerVideoGravityResize
-            self.previewLayer?.position = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))
+            self.previewLayer?.position = CGPoint(x: bounds.midX, y: bounds.midY)
             
-            videoOutput.setSampleBufferDelegate(self, queue: dispatch_queue_create("AVSessionQueue", DISPATCH_QUEUE_SERIAL))
+            videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "AVSessionQueue", attributes: []))
             self.captureSession.addOutput(videoOutput)
             self.cameraView.layer.addSublayer(self.previewLayer!)
             
@@ -170,20 +142,20 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     
     let context = CIContext(options:nil);
     
-    func rotateLabels (angle: CGFloat) {
-        dispatch_async(dispatch_get_main_queue(), {
-            UIView.animateWithDuration(0.5, animations: {
-                self.minusLabel.transform = CGAffineTransformRotate(CGAffineTransformIdentity, angle)
-                self.plusLabel.transform = CGAffineTransformRotate(CGAffineTransformIdentity, angle)
-                self.zoomSlider.transform = CGAffineTransformRotate(CGAffineTransformIdentity, CGFloat(0))
-                self.informationButton.transform = CGAffineTransformRotate(CGAffineTransformIdentity, angle)
+    func rotateLabels (_ angle: CGFloat) {
+        DispatchQueue.main.async(execute: {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.minusLabel.transform = CGAffineTransform.identity.rotated(by: angle)
+                self.plusLabel.transform = CGAffineTransform.identity.rotated(by: angle)
+                self.zoomSlider.transform = CGAffineTransform.identity.rotated(by: CGFloat(0))
+                self.informationButton.transform = CGAffineTransform.identity.rotated(by: angle)
             })
         })
     }
     
     func switchLabels () {
-        dispatch_async(dispatch_get_main_queue(), {
-            UIView.animateWithDuration(0.5, animations: {
+        DispatchQueue.main.async(execute: {
+            UIView.animate(withDuration: 0.5, animations: {
                 let c1 = self.minusLabel.center
                 let c2 = self.plusLabel.center
                 
@@ -191,46 +163,46 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                 let dy = c2.y - c1.y
                 
                 
-                self.minusLabel.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, dx, dy)
-                self.plusLabel.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -dx, -dy)
+                self.minusLabel.transform = CGAffineTransform.identity.translatedBy(x: dx, y: dy)
+                self.plusLabel.transform = CGAffineTransform.identity.translatedBy(x: -dx, y: -dy)
                 
-                self.minusLabel.transform = CGAffineTransformRotate(self.minusLabel.transform, CGFloat(-M_PI/2))
-                self.plusLabel.transform = CGAffineTransformRotate(self.plusLabel.transform, CGFloat(-M_PI/2))
+                self.minusLabel.transform = self.minusLabel.transform.rotated(by: CGFloat(-1/2 * Double.pi))
+                self.plusLabel.transform = self.plusLabel.transform.rotated(by: CGFloat(-1/2 * Double.pi))
                 
                 
-                self.zoomSlider.transform = CGAffineTransformRotate(CGAffineTransformIdentity, CGFloat(M_PI))
+                self.zoomSlider.transform = CGAffineTransform.identity.rotated(by: CGFloat(Double.pi))
                 
-                self.informationButton.transform = CGAffineTransformRotate(CGAffineTransformIdentity, CGFloat(-M_PI/2))
+                self.informationButton.transform = CGAffineTransform.identity.rotated(by: CGFloat(-1/2 * Double.pi))
 
             })
         })
     }
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
         
-        let currentOrientation = UIDevice.currentDevice().orientation
+        let currentOrientation = UIDevice.current.orientation
         if (currentOrientation != self.previousOrientation){
             
             switch (currentOrientation) {
-            case .Portrait:
-                self.videoOutput.connectionWithMediaType(AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.Portrait
+            case .portrait:
+                self.videoOutput.connection(withMediaType: AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.portrait
                 self.rotateLabels(0)
                 break
-            case .LandscapeRight:
-                self.videoOutput.connectionWithMediaType(AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.LandscapeLeft
+            case .landscapeRight:
+                self.videoOutput.connection(withMediaType: AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.landscapeLeft
                 self.switchLabels()
                 break
-            case .LandscapeLeft:
-                self.videoOutput.connectionWithMediaType(AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.LandscapeRight
-                self.rotateLabels(CGFloat(M_PI/2))
+            case .landscapeLeft:
+                self.videoOutput.connection(withMediaType: AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.landscapeRight
+                self.rotateLabels(CGFloat(1/2*Double.pi))
                 
                 break
-            case .PortraitUpsideDown:
-                self.videoOutput.connectionWithMediaType(AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
+            case .portraitUpsideDown:
+                self.videoOutput.connection(withMediaType: AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown
                 self.rotateLabels(0)
                 break
             default:
-                self.videoOutput.connectionWithMediaType(AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.Portrait
+                self.videoOutput.connection(withMediaType: AVMediaTypeVideo).videoOrientation = AVCaptureVideoOrientation.portrait
                 self.rotateLabels(0)
                 break
             }
@@ -241,20 +213,20 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         if (self.clients.count>0){
             
             let capture : CVImageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
-            let sourceImage = CIImage(CVImageBuffer: capture, options: nil)
-            let tempImage:CGImageRef = self.context.createCGImage(sourceImage, fromRect: sourceImage.extent)
-            let image = UIImage(CGImage: tempImage);
+            let sourceImage = CIImage(cvImageBuffer: capture, options: nil)
+            let tempImage:CGImage = self.context.createCGImage(sourceImage, from: sourceImage.extent)!
+            let image = UIImage(cgImage: tempImage);
             let imageToSend = UIImageJPEGRepresentation(image, 0);
             for (key, client) in self.clients {
                 if (client.connected){
-                    client.dataToSend = imageToSend?.copy() as! NSData
+                    client.dataToSend = (imageToSend as NSData?)?.copy() as? Data
                 }else{
-                    self.clients.removeValueForKey(key)
+                    self.clients.removeValue(forKey: key)
                 }
             }
             
             if (self.clients.count==0){
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.ledImage.image = UIImage(named: "led_gray")
                 })
             }

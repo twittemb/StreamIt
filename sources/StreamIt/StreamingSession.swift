@@ -15,18 +15,18 @@ class StreamingSession {
     
     var client: GCDAsyncSocket
     var isHeadersSent = false
-    var dataStack = Queue<NSData>(maxCapacity: 1)
-    var queue: dispatch_queue_t
-    let footersData = "\r\n".dataUsingEncoding(NSUTF8StringEncoding)
+    var dataStack = Queue<Data>(maxCapacity: 1)
+    var queue: DispatchQueue
+    let footersData = "\r\n".data(using: String.Encoding.utf8)
     var connected = true
     var id: Int
-    var dataToSend: NSData? {
+    var dataToSend: Data? {
         didSet {
             self.dataStack.enqueue(self.dataToSend!)
         }
     }
     
-    init (id: Int, client: GCDAsyncSocket, queue: dispatch_queue_t){
+    init (id: Int, client: GCDAsyncSocket, queue: DispatchQueue){
         self.id = id
         self.client = client
         self.queue = queue
@@ -37,7 +37,7 @@ class StreamingSession {
     }
     
     func startStreaming () {
-        dispatch_async(self.queue, { [unowned self] in
+        self.queue.async(execute: { [unowned self] in
             while (self.connected){
                 
                 if (!self.isHeadersSent) {
@@ -55,9 +55,9 @@ class StreamingSession {
                         "Pragma: no-cache\r\n" +
                     "Content-type: multipart/x-mixed-replace; boundary=0123456789876543210\r\n"
                     
-                    let headersData = headers.dataUsingEncoding(NSUTF8StringEncoding)
+                    let headersData = headers.data(using: String.Encoding.utf8)
                     
-                    self.client.writeData(headersData, withTimeout: -1, tag: 0)
+                    self.client.write(headersData!, withTimeout: -1, tag: 0)
                 }else{
                     if (self.client.connectedPort.hashValue == 0){
                         // y a personne en face ... on arrête d'envoyer des données
@@ -66,11 +66,11 @@ class StreamingSession {
                     }
                     
                     if let data = self.dataStack.dequeue() {
-                        let frameHeader = "\r\n--0123456789876543210\r\nContent-Type: image/jpeg\r\nContent-Length: \(data.length)\r\n\r\n"
-                        let headersData = frameHeader.dataUsingEncoding(NSUTF8StringEncoding)
-                        self.client.writeData(headersData, withTimeout: -1, tag: 0)
-                        self.client.writeData(data, withTimeout: -1, tag: 0)
-                        self.client.writeData(self.footersData, withTimeout: -1, tag: self.id)
+                        let frameHeader = "\r\n--0123456789876543210\r\nContent-Type: image/jpeg\r\nContent-Length: \(data.count)\r\n\r\n"
+                        let headersData = frameHeader.data(using: String.Encoding.utf8)
+                        self.client.write(headersData!, withTimeout: -1, tag: 0)
+                        self.client.write(data, withTimeout: -1, tag: 0)
+                        self.client.write(self.footersData!, withTimeout: -1, tag: self.id)
                     }
                 }
             }

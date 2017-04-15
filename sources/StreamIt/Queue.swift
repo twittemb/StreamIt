@@ -9,7 +9,7 @@ class _QueueItem<T> {
 }
 
 
-public class Queue<T> {
+open class Queue<T> {
     
     var _front: _QueueItem<T>
     var _back: _QueueItem<T>
@@ -24,7 +24,7 @@ public class Queue<T> {
     }
     
     /// Add a new item to the back of the queue.
-    public func enqueue (value: T) {
+    open func enqueue (_ value: T) {
         if (self.currentSize>=maxCapacity){
             _back = _QueueItem(value)
         }else{
@@ -36,7 +36,7 @@ public class Queue<T> {
     }
     
     /// Return and remove the item at the front of the queue.
-    public func dequeue () -> T? {
+    open func dequeue () -> T? {
         if let newhead = _front.next {
             _front = newhead
             self.currentSize -= 1
@@ -47,7 +47,7 @@ public class Queue<T> {
         }
     }
     
-    public func isEmpty() -> Bool {
+    open func isEmpty() -> Bool {
         return _front === _back
     }
 }

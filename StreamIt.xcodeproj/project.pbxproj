@@ -12,10 +12,10 @@
 		1A7E8C3E1CBFFC7400EFE574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C3C1CBFFC7400EFE574 /* Main.storyboard */; };
 		1A7E8C401CBFFC7400EFE574 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C3F1CBFFC7400EFE574 /* Assets.xcassets */; };
 		1A7E8C431CBFFC7400EFE574 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A7E8C411CBFFC7400EFE574 /* LaunchScreen.storyboard */; };
-		1A7E8C521CBFFEEA00EFE574 /* IPChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C511CBFFEEA00EFE574 /* IPChecker.m */; };
 		1A7E8C541CBFFF9A00EFE574 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */; };
 		1A7E8C561CC0005800EFE574 /* StreamingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C551CC0005800EFE574 /* StreamingSession.swift */; };
 		1A7E8C5B1CC0009500EFE574 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7E8C571CC0009500EFE574 /* Queue.swift */; };
+		93DE98311FDEB62A0048600F /* IPChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DE98301FDEB62A0048600F /* IPChecker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,11 +27,11 @@
 		1A7E8C441CBFFC7400EFE574 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A7E8C4A1CBFFE3F00EFE574 /* CocoaAsyncSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaAsyncSocket.framework; path = Carthage/Build/iOS/CocoaAsyncSocket.framework; sourceTree = "<group>"; };
 		1A7E8C4E1CBFFEE900EFE574 /* StreamIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StreamIt-Bridging-Header.h"; sourceTree = "<group>"; };
-		1A7E8C501CBFFEEA00EFE574 /* IPChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPChecker.h; sourceTree = "<group>"; };
-		1A7E8C511CBFFEEA00EFE574 /* IPChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPChecker.m; sourceTree = "<group>"; };
 		1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		1A7E8C551CC0005800EFE574 /* StreamingSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingSession.swift; sourceTree = "<group>"; };
 		1A7E8C571CC0009500EFE574 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		93DE982F1FDEB62A0048600F /* IPChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPChecker.h; sourceTree = "<group>"; };
+		93DE98301FDEB62A0048600F /* IPChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPChecker.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,6 @@
 		1A7E8C371CBFFC7400EFE574 /* StreamIt */ = {
 			isa = PBXGroup;
 			children = (
-				1A7E8C4D1CBFFE9F00EFE574 /* IpChecker */,
 				1A7E8C381CBFFC7400EFE574 /* AppDelegate.swift */,
 				1A7E8C531CBFFF9A00EFE574 /* CameraViewController.swift */,
 				1A7E8C551CC0005800EFE574 /* StreamingSession.swift */,
@@ -75,18 +74,19 @@
 				1A7E8C3F1CBFFC7400EFE574 /* Assets.xcassets */,
 				1A7E8C411CBFFC7400EFE574 /* LaunchScreen.storyboard */,
 				1A7E8C441CBFFC7400EFE574 /* Info.plist */,
+				93DE982E1FDEB62A0048600F /* IPChecker */,
 				1A7E8C4E1CBFFEE900EFE574 /* StreamIt-Bridging-Header.h */,
 			);
 			path = StreamIt;
 			sourceTree = "<group>";
 		};
-		1A7E8C4D1CBFFE9F00EFE574 /* IpChecker */ = {
+		93DE982E1FDEB62A0048600F /* IPChecker */ = {
 			isa = PBXGroup;
 			children = (
-				1A7E8C501CBFFEEA00EFE574 /* IPChecker.h */,
-				1A7E8C511CBFFEEA00EFE574 /* IPChecker.m */,
+				93DE982F1FDEB62A0048600F /* IPChecker.h */,
+				93DE98301FDEB62A0048600F /* IPChecker.m */,
 			);
-			name = IpChecker;
+			path = IPChecker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,8 +181,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A7E8C5B1CC0009500EFE574 /* Queue.swift in Sources */,
+				93DE98311FDEB62A0048600F /* IPChecker.m in Sources */,
 				1A7E8C391CBFFC7400EFE574 /* AppDelegate.swift in Sources */,
-				1A7E8C521CBFFEEA00EFE574 /* IPChecker.m in Sources */,
 				1A7E8C541CBFFF9A00EFE574 /* CameraViewController.swift in Sources */,
 				1A7E8C561CC0005800EFE574 /* StreamingSession.swift in Sources */,
 			);

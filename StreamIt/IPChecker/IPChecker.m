@@ -27,14 +27,13 @@
                     address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)addr->ifa_addr)->sin_addr)];
                 }
             }
-            
+
             addr = addr->ifa_next;
         }
     }
-    
+
     freeifaddrs(interfaces);
-    
+
     return address;
 }
 @end
-

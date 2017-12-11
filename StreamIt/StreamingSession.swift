@@ -9,66 +9,94 @@
 import Foundation
 import CocoaAsyncSocket
 
-
-
 class StreamingSession {
-    
-    var client: GCDAsyncSocket
-    var isHeadersSent = false
-    var dataStack = Queue<Data>(maxCapacity: 1)
-    var queue: DispatchQueue
-    let footersData = "\r\n".data(using: String.Encoding.utf8)
-    var connected = true
+
+    fileprivate var client: GCDAsyncSocket
+    fileprivate var headersSent = false
+    fileprivate var dataStack = Queue<Data>(maxCapacity: 1)
+    fileprivate var queue: DispatchQueue
+    fileprivate let footersData = ["", ""].joined(separator: "\r\n").data(using: String.Encoding.utf8)
+
     var id: Int
+    var connected = true
     var dataToSend: Data? {
         didSet {
-            self.dataStack.enqueue(self.dataToSend!)
+            guard let dataToSend = self.dataToSend else { return }
+
+            self.dataStack.enqueue(dataToSend)
         }
     }
-    
-    init (id: Int, client: GCDAsyncSocket, queue: DispatchQueue){
+
+    // MARK: - Lifecycle
+
+    init (id: Int, client: GCDAsyncSocket, queue: DispatchQueue) {
+        print("Creating client [#\(id)]")
+
         self.id = id
         self.client = client
         self.queue = queue
     }
-    
-    func close (){
+
+    // MARK: - Methods
+
+    func close() {
+        print("Closing client [#\(self.id)]")
+
         self.connected = false
     }
-    
-    func startStreaming () {
+
+    func startStreaming() {
         self.queue.async(execute: { [unowned self] in
-            while (self.connected){
-                
-                if (!self.isHeadersSent) {
-                    print("Sending headers ...")
-                    self.isHeadersSent = true
-                    let headers = "HTTP/1.0 200 OK\r\n" +
-                        "Connection: keep-alive\r\n" +
-                        "Ma-age: 0\r\n" +
-                        "Expires: 0\r\n" +
-                        "Cache-Control: no-store,must-revalidate\r\n" +
-                        "Access-Control-Allow-Origin: *\r\n" +
-                        "Access-Control-Allow-Headers: accept,content-type\r\n" +
-                        "Access-Control-Allow-Methods: GET\r\n" +
-                        "Access-Control-expose-headers: Cache-Control,Content-Encoding\r\n" +
-                        "Pragma: no-cache\r\n" +
-                    "Content-type: multipart/x-mixed-replace; boundary=0123456789876543210\r\n"
-                    
-                    let headersData = headers.data(using: String.Encoding.utf8)
-                    
-                    self.client.write(headersData!, withTimeout: -1, tag: 0)
-                }else{
-                    if (self.client.connectedPort.hashValue == 0){
+            while self.connected {
+
+                if !self.headersSent {
+                    print("Sending headers [#\(self.id)]")
+
+                    let headers = [
+                        "HTTP/1.0 200 OK",
+                        "Connection: keep-alive",
+                        "Ma-age: 0",
+                        "Expires: 0",
+                        "Cache-Control: no-store,must-revalidate",
+                        "Access-Control-Allow-Origin: *",
+                        "Access-Control-Allow-Headers: accept,content-type",
+                        "Access-Control-Allow-Methods: GET",
+                        "Access-Control-expose-headers: Cache-Control,Content-Encoding",
+                        "Pragma: no-cache",
+                        "Content-type: multipart/x-mixed-replace; boundary=0123456789876543210",
+                        ""
+                    ]
+
+                    guard let headersData = headers.joined(separator: "\r\n").data(using: String.Encoding.utf8) else {
+                        print("Could not make headers data [#\(self.id)]")
+                        return
+                    }
+
+                    self.headersSent = true
+                    self.client.write(headersData, withTimeout: -1, tag: 0)
+                } else {
+                    if self.client.connectedPort.hashValue == 0 {
                         // y a personne en face ... on arrête d'envoyer des données
                         self.close()
-                        print("Dropping client ...")
+                        print("Dropping client [#\(self.id)]")
                     }
-                    
+
                     if let data = self.dataStack.dequeue() {
-                        let frameHeader = "\r\n--0123456789876543210\r\nContent-Type: image/jpeg\r\nContent-Length: \(data.count)\r\n\r\n"
-                        let headersData = frameHeader.data(using: String.Encoding.utf8)
-                        self.client.write(headersData!, withTimeout: -1, tag: 0)
+                        let frameHeaders = [
+                            "",
+                            "--0123456789876543210",
+                            "Content-Type: image/jpeg",
+                            "Content-Length: \(data.count)",
+                            "",
+                            ""
+                        ]
+
+                        guard let frameHeadersData = frameHeaders.joined(separator: "\r\n").data(using: String.Encoding.utf8) else {
+                            print("Could not make frame headers data [#\(self.id)]")
+                            return
+                        }
+
+                        self.client.write(frameHeadersData, withTimeout: -1, tag: 0)
                         self.client.write(data, withTimeout: -1, tag: 0)
                         self.client.write(self.footersData!, withTimeout: -1, tag: self.id)
                     }

@@ -75,6 +75,7 @@
 				1A7E8C3F1CBFFC7400EFE574 /* Assets.xcassets */,
 				1A7E8C411CBFFC7400EFE574 /* LaunchScreen.storyboard */,
 				1A7E8C441CBFFC7400EFE574 /* Info.plist */,
+				1A7E8C4E1CBFFEE900EFE574 /* StreamIt-Bridging-Header.h */,
 			);
 			path = StreamIt;
 			sourceTree = "<group>";
@@ -84,7 +85,6 @@
 			children = (
 				1A7E8C501CBFFEEA00EFE574 /* IPChecker.h */,
 				1A7E8C511CBFFEEA00EFE574 /* IPChecker.m */,
-				1A7E8C4E1CBFFEE900EFE574 /* StreamIt-Bridging-Header.h */,
 			);
 			name = IpChecker;
 			sourceTree = "<group>";

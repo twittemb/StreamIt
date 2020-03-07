@@ -6,11 +6,11 @@
 //  Copyright © 2016 Thibault Wittemberg. All rights reserved.
 //
 
-import UIKit
 import AVFoundation
 import CocoaAsyncSocket
+import UIKit
 
-class CameraViewController: UIViewController {
+final class CameraViewController: UIViewController {
 
     @IBOutlet fileprivate weak var cameraView: UIView!
     @IBOutlet fileprivate weak var plusLabel: UILabel!
@@ -215,7 +215,7 @@ extension CameraViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             let sourceImage = CIImage(cvImageBuffer: capture, options: nil)
             guard let tempImage = self.context.createCGImage(sourceImage, from: sourceImage.extent) else { return }
             let image = UIImage(cgImage: tempImage)
-            let imageToSend = UIImageJPEGRepresentation(image, 0)
+            let imageToSend = image.jpegData(compressionQuality: 0)
 
             for (key, client) in self.clients {
                 if client.connected {

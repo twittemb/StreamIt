@@ -75,7 +75,7 @@ class StreamingSession {
                     self.headersSent = true
                     self.client.write(headersData, withTimeout: -1, tag: 0)
                 } else {
-                    if self.client.connectedPort.hashValue == 0 {
+                    if (self.client.connectedPort.hashValue == 0 || !self.client.isConnected) {
                         // y a personne en face ... on arrête d'envoyer des données
                         self.close()
                         print("Dropping client [#\(self.id)]")
